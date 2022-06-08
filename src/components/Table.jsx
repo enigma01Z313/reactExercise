@@ -16,12 +16,14 @@ export default class Table extends Component {
       item => {
         const b = this?.state?.options?.searchable.reduce((acc, cur) => 
           item[cur]
+            .toString()
             .toLowerCase()
             .includes(key.toLowerCase()) ? 
               acc + 1 : acc
         , 0)
         
         if ( b !== 0 ) return item
+        return false
       }
     )
 

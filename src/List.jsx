@@ -49,7 +49,7 @@ export default class List extends Component {
     options: {
       showRowCount: true,
       sortable: true,
-      searchable: ['name', 'address']
+      searchable: ['name', 'age', 'address']
     }
   }
 
