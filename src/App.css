@@ -1,0 +1,29 @@
+body{
+  background: #ddd;
+}
+
+.fTable .sortable th:not(:first-child){
+  cursor: pointer;
+}
+
+.fTable .sortable th.sortBase{
+  padding-right: 22px;
+  position: relative;
+}
+.fTable .sortable th.sortBase:after{
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  position: absolute;
+  right: 3px;
+  top: 6px;
+}
+.fTable .sortable th.sortBase.sortAscending:after{
+  border-top-color: #333
+}
+.fTable .sortable th.sortBase.sortDescending:after{
+  border-bottom-color: #333;
+  top: -2px;
+}
