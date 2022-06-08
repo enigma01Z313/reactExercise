@@ -15,13 +15,13 @@ export default class TableSearch extends Component {
     
   render() {
     return (
-      <div>
+      <div className="table-search">
         <input 
           id='searchBox' 
           type="text" 
           value={this.state.value}
           onChange={this.handleChange}/>
-        <button onClick={() => this.handleSearch()}>Search</button>
+        <button onClick={() => this.handleSearch()}>Go</button>
       </div>
     )
   }

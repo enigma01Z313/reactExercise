@@ -1,5 +1,63 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  min-height: 100%;
+}
 body{
-  background: #ddd;
+  font-family: sans-serif;
+  min-height: 100vh;
+  background: radial-gradient(#d67878, #ae91e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tableWrapper{
+  background: rgba(255,255,255,.3);
+  box-shadow: 0 0 15px rgba(66,66,66,.2);
+  display: inline-block;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.table-search{
+  position: relative;
+}
+.table-search input{
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,.3);
+  box-shadow: 0 0 7px rgba(100,100,100,.5);
+  margin-bottom: 20px;
+  transition: all .35s
+}
+.table-search input:focus{
+  background: rgba(255,255,255,.5);
+}
+.table-search button{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #ae91e5;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,.8);
+  cursor: pointer;
+  transform: scale(1);
+  transition: all .3s
+}
+.table-search button:active{
+  box-shadow: 0 0 3px rgba(0,0,0,.4);
+  transform: scale(.8);
 }
 
 .fTable .sortable th:not(:first-child){

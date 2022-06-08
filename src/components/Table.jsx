@@ -71,13 +71,13 @@ export default class Table extends Component {
 
   render() {
     return (
-      <>
+      <div className='tableWrapper'>
         {
           this.state?.options?.searchable && 
           <TableSearch 
             doSearch={this.state?.options?.searchable && this.doSearch}/>
         }
-        <table className='fTable' border="1">
+        <table className='fTable'>
           <TableHead 
             columns={this.state.columns} 
             options={this.state.options} 
@@ -87,7 +87,7 @@ export default class Table extends Component {
             columns={this.state.columns} 
             options={this.state.options} />
         </table>
-      </>
+      </div>
     )
   }
 }
