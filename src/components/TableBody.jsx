@@ -8,11 +8,11 @@ export default class TableBody extends Component {
   };
 
   render() {
-    const { dataList, columns, options } = this.props;
+    const { dataList, columns, options, loading } = this.props;
 
     return (
       <tbody>
-        {dataList.map((data, index) => (
+        {!loading && dataList.map((data, index) => (
           <tr key={data.id}>
             {options?.showRowCount && <th>{index + 1}</th>}
             {columns.map((column) => (
@@ -20,6 +20,11 @@ export default class TableBody extends Component {
             ))}
           </tr>
         ))}
+        {loading && 
+          <tr>
+            <td className="loadingData" colSpan="100">&nbsp;</td>
+          </tr>
+        }
       </tbody>
     );
   }

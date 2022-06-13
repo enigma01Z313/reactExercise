@@ -107,13 +107,77 @@ body{
   transform: rotate(-45deg);
   right: 10px;
 }
-.fTable .sortable th.sortBase.sortDescending:before,
-.fTable .sortable th.sortBase.sortDescending:after{
-
-}
 .fTable .sortable th.sortBase.sortDescending:before{
   right: 10px;
 }
 .fTable .sortable th.sortBase.sortDescending:after{
   right: 4px;
+}
+
+.fTable td.loadingData{
+  position: relative;
+}
+.fTable td.loadingData:before,
+.fTable td.loadingData:after{
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 3px;
+}
+.fTable td.loadingData:before{
+  width: 100%;
+  background-color: rgba(255,255,255,.2);
+}
+@keyframes animatename{
+  0%{
+    width: 0;
+    left: 0;
+  }
+  10%{
+    width: 50px;
+    left: 0;
+  }
+  90%{
+    width: 50px;
+    left: calc(100% - 50px);
+  }
+  100%{
+    width: 0;
+    left: 100%;
+  }
+}
+.fTable td.loadingData:after{
+  background: #ae91e5;
+  animation: animatename 2s linear infinite;
+}
+
+.statusCheck{
+  cursor: pointer;
+}
+.statusCheck input{display: none;}
+.statusCheck input + div{
+  position: relative;
+  background: rgba(255,255,255,.3);
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+}
+.statusCheck input + div:after{
+  display: block;
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: all .35s;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+}
+.statusCheck input:checked + div{
+  background: rgba(0, 255, 0, 0.3);
+}
+.statusCheck input:checked + div:after{
+  left: 20px
 }

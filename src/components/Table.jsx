@@ -9,9 +9,12 @@ export default class Table extends Component {
     columns: this.props.columns,
     options: this.props.options,
     dataBackup: undefined,
+    loading: true,
   };
 
   renderedColumnData = (column, data) => {
+    if (column.value) return column.value(data);
+
     if (column.render) return column.render(data);
 
     return data[column.key];
@@ -52,8 +55,6 @@ export default class Table extends Component {
     order = this.getSortOrder(sortBase);
     newSortMeta = { sortBase, order };
 
-    console.log(newSortMeta);
-
     const newData = [...this.state.data].sort((a, b) =>
       this.renderedColumnData(column, a) < this.renderedColumnData(column, b)
         ? -1 * order
@@ -93,6 +94,7 @@ export default class Table extends Component {
     if (JSON.stringify(prevProps.data) !== JSON.stringify(this.props.data)) {
       this.setState({
         data: this.props.data,
+        loading: false,
       });
     }
   }
@@ -112,6 +114,7 @@ export default class Table extends Component {
             handleSort={this.sort}
           />
           <TableBody
+            loading={this.state.loading}
             dataList={this.state.data}
             columns={this.state.columns}
             options={this.state.options}
