@@ -14,7 +14,7 @@ export default class TableHead extends Component {
 
     return (
       <th 
-        onClick={() => options?.sortable && handleSort(column.key)} 
+        onClick={() => options?.sortable && handleSort(column)} 
         key={column.key}
         className={classList.join(' ')}>
         {column.title}

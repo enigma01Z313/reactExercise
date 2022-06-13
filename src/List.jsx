@@ -1,65 +1,58 @@
-import React, { Component } from 'react'
-import Table from './components/Table'
-
+import React, { Component } from "react";
+import Table from "./components/Table";
 
 export default class List extends Component {
   state = {
     columns: [
       {
-        title: 'ID',
-        dataIndex: 'key',
-        key: 'key',
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
       },
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
       },
       {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: "Address",
+        dataIndex: "address",
+        key: "address",
+        render: (data) => {
+          return `${data.address.street} - ${data.address.city}, ${data.address.zipcode}`;
+        },
       },
       {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-      }
-    ],
-    data: [
-      {
-        key: '1',
-        name: 'Mike',
-        age: 32,
-        address: '10 Downing Street',
-      },
-      {
-        key: '2',
-        name: 'John',
-        age: 42,
-        address: '10 Downing Street',
-      },
-      {
-        key: '3',
-        name: 'Mike',
-        age: 30,
-        address: '10 Downing Street',
+        title: "Website",
+        dataIndex: "website",
+        key: "website",
       },
     ],
+    data: [],
     options: {
       showRowCount: true,
       sortable: true,
-      searchable: ['name', 'age', 'address']
-    }
-  }
+      searchable: ["name", "address"],
+    },
+  };
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          data,
+        });
+      });
+  }
 
   render() {
     return (
-      <Table 
-        columns={this.state.columns} 
-        data={this.state.data} 
-        options={this.state.options} />
-    )
+      <Table
+        columns={this.state.columns}
+        data={this.state.data}
+        options={this.state.options}
+      />
+    );
   }
 }
