@@ -1,123 +1,48 @@
 import React, { Component } from "react";
-import Table from "./components/Table";
+import Input from "./components/Input";
+import Button from "./components/Button";
 
 export default class List extends Component {
   state = {
-    usersTable: {
-      columns: [
-        {
-          title: "ID",
-          dataIndex: "id",
-          key: "id",
-        },
-        {
-          title: "Name",
-          dataIndex: "name",
-          key: "name",
-        },
-        {
-          title: "Address",
-          dataIndex: "address",
-          key: "address",
-          render: (data) => {
-            return `${data.address.street} - ${data.address.city}, ${data.address.zipcode}`;
-          },
-        },
-        {
-          title: "Website",
-          dataIndex: "website",
-          key: "website",
-        },
-      ],
-      data: [],
-      options: {
-        showRowCount: true,
-        sortable: true,
-        searchable: ["name", "address"],
-      },
-    },
-    todosTable: {
-      columns: [
-        {
-          title: "ID",
-          dataIndex: "id",
-          key: "id",
-        },
-        {
-          title: "Title",
-          dataIndex: "title",
-          key: "title",
-        },
-        {
-          title: "Status",
-          dataIndex: "status",
-          key: "status",
-          render: (data) => {
-            return (
-              <label className="statusCheck">
-                <input
-                  checked={data.completed && "checked"}
-                  type="checkbox"
-                  onChange={() => {
-                    console.log("trying to change task status");
-                  }}
-                />
-                <div></div>
-              </label>
-            );
-          },
-          value: (data) => {
-            return +data.completed
-          }
-        },
-      ],
-      data: [],
-      options: {
-        showRowCount: true,
-        sortable: true,
-      },
-    },
+    text: "ssss",
+    editMode: false,
   };
 
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setTimeout(() => {
-          this.setState({
-            usersTable: {
-              data,
-            },
-          });
-        }, 5000);
-      });
+  textInput = React.createRef();
 
-    fetch("https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=10")
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          todosTable: {
-            data,
-          },
-        });
-      });
-  }
+  changeValue = (newVal) => {
+    this.setState({ text: newVal });
+  };
+
+  toggleEditMode = () => {
+    this.setState({ editMode: !this.state.editMode }, () => {
+      this.textInput?.current?.focus();
+    });
+  };
+
+  rendeEditableText = () => {
+    if (this.state.editMode) {
+      return (
+        <>
+          <Input
+            value={this.state.text}
+            changeValue={this.changeValue}
+            thisRef={this.textInput}
+          />
+          <Button handleClick={this.toggleEditMode} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <h2>Duble click to edit</h2>
+          <span onDoubleClick={this.toggleEditMode}>{this.state.text}</span>
+        </>
+      );
+    }
+  };
 
   render() {
-    return (
-      <>
-        <Table
-          columns={this.state.usersTable.columns}
-          data={this.state.usersTable.data}
-          options={this.state.usersTable.options}
-        />
-
-        <Table
-          columns={this.state.todosTable.columns}
-          data={this.state.todosTable.data}
-          options={this.state.todosTable.options}
-        />
-      </>
-    );
+    return this.rendeEditableText();
   }
 }
