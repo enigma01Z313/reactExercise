@@ -139,6 +139,14 @@ body{
     width: 50px;
     left: 0;
   }
+  40%{
+    width: 80px;
+    left: calc( (100% - 80px) / 2);
+  }
+  60%{
+    width: 50px;
+    left: calc(( (100% - 80px) / 2) + 50px);
+  }
   90%{
     width: 50px;
     left: calc(100% - 50px);

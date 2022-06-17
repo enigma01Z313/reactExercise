@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Table from "./components/Table";
+import Table from "./componentsOld/Table";
+import Table2 from "./componentsOld/Table2";
 
 export default class List extends Component {
   state = {
@@ -67,8 +68,8 @@ export default class List extends Component {
             );
           },
           value: (data) => {
-            return +data.completed
-          }
+            return +data.completed;
+          },
         },
       ],
       data: [],
@@ -86,10 +87,11 @@ export default class List extends Component {
         setTimeout(() => {
           this.setState({
             usersTable: {
+              ...this.state.usersTable,
               data,
             },
           });
-        }, 5000);
+        }, 3);
       });
 
     fetch("https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=10")
@@ -106,17 +108,22 @@ export default class List extends Component {
   render() {
     return (
       <>
-        <Table
+        {/* <Table
+          columns={this.state.usersTable.columns}
+          data={this.state.usersTable.data}
+          options={this.state.usersTable.options}
+        /> */}
+        <Table2
           columns={this.state.usersTable.columns}
           data={this.state.usersTable.data}
           options={this.state.usersTable.options}
         />
 
-        <Table
+        {/* <Table
           columns={this.state.todosTable.columns}
           data={this.state.todosTable.data}
           options={this.state.todosTable.options}
-        />
+        /> */}
       </>
     );
   }

@@ -103,9 +103,11 @@ export default class Table extends Component {
     return (
       <div className="tableWrapper">
         {this.state?.options?.searchable && (
-          <TableSearch
-            doSearch={this.state?.options?.searchable && this.doSearch}
-          />
+          <>
+            <TableSearch
+              doSearch={this.state?.options?.searchable && this.doSearch}
+            />
+          </>
         )}
         <table className="fTable">
           <TableHead
