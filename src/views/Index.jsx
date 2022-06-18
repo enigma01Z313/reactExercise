@@ -2,6 +2,33 @@ import React, { useState, useEffect, useReducer } from "react";
 import todoReducer from "../reducers/todo";
 import InputText from "../componentsOld/inputs/Text";
 
+const asRemove = (id) =>
+  new Promise((resolve, reject) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        resolve();
+      });
+  });
+
+const asAdd = (title) =>
+  new Promise((resolve, reject) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({title})
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        resolve(data);
+      });
+  });
+
 export default function Index() {
   const [task, setTask] = useState("");
   const [todos, todoDispatch] = useReducer(todoReducer, []);
@@ -10,18 +37,22 @@ export default function Index() {
     setTask(val);
   }
 
-  function addTodo(e) {
+  async function addTodo(e) {
     e.preventDefault();
-    todoDispatch({ type: "ADD_TODO", payload: task });
     setTask("");
+    const taskId = await asAdd(task);
+    todoDispatch({
+      type: "ADD_TODO",
+      payload: { id: taskId, title: task },
+    });
   }
 
-  function removeTodo(id) {
+  async function removeTodo(id) {
+    await asRemove(id);
     todoDispatch({ type: "REMOVE_TODO", payload: id });
   }
 
   useEffect(() => {
-    console.log("mounted");
     fetch("https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5")
       .then((res) => res.json())
       .then((data) => {
@@ -29,7 +60,6 @@ export default function Index() {
       });
   }, []);
 
-  console.log(todos);
   return (
     <>
       <form onSubmit={addTodo}>
